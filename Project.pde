@@ -5,11 +5,12 @@
 */
 
 // Adjust size of squares
-int cellSize = 10;
+float cellSize = 10;
 float phase = 0.0;
 float phaseIncrement = 0.01;
 
 void setup() {
+  frameRate(60);
   size(1600, 900);
 }
 
@@ -18,7 +19,7 @@ void draw() {
   
   for (int hori = 0; hori < width/cellSize; hori++) {
     for (int vert = 0; vert < width/cellSize; vert++) {
-      generate(cellSize, hori, vert);
+      generate(cellSize, (float)hori, (float)vert);
     }
   }
   
