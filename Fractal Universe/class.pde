@@ -25,8 +25,9 @@ class Complex {
   }
   
   void update() {
-    re = (float)( center.x + (x - width/2) * pixelSize );
-    im = (float)( center.y + (y - height/2) * pixelSize );
+    float randomLevel = 10;
+    re = (float)( center.x + (x - width/2) * pixelSize ) + random(-randomLevel*pixelSize, randomLevel*pixelSize);
+    im = (float)( center.y + (y - height/2) * pixelSize ) + random(-randomLevel*pixelSize, randomLevel*pixelSize);
   }
 }
 

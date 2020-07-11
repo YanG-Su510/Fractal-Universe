@@ -1,6 +1,6 @@
-int max = 1000;                                 // (used for iteration in class Complex)
+int max = 1000;                                // (used for iteration in class Complex)
 PVector center = new PVector(-0.737, -0.208);  // define the center you want (default -0.737, -0.208)
-float pixelSize = 0.001;                       // define mathematical size of one pixel for animation
+float pixelSize = 0.01;                       // define mathematical size of one pixel for animation
 
 ArrayList<Complex> cood = new ArrayList<Complex>();
 
