@@ -1,12 +1,24 @@
-float FPS = 30;
-int stage = 0;
+/**
+  Author:   YanG-Su510
+  Version:  Build 0717
+**/
+
+///////////////////////////////////////////////////////////////////////////////////
+// GLOBAL VARIABLES
+float   FPS = 60;
+int     stage = 0;
+int     bound = 100;        // color bound of picking pixels, recommend bigger than 90
+float   socialDist = 10;   // keep social distance
 
 // stage variables
   // stage 0
   PImage[] startup = new PImage[248];
   int start_index = 0;
   //stage 1
+  ArrayList<pix> dots = new ArrayList<pix>();
 
+///////////////////////////////////////////////////////////////////////////////////
+// MAIN
 void setup() {
   size(500, 500);
   frameRate(FPS);
@@ -15,16 +27,43 @@ void setup() {
 }
 
 void draw() {
-  background(0);
+  background(0, 50);
   
+  // stage switcher
   switch (stage) {
+    
+    // The stage of startup
     case 0:
-      // The stage of startup
+      if (start_index >= 247) {
+        image(startup[247],0,0);
+        scanDots();
+        stage = 1;
+      }
       startup(start_index);
       if (start_index < 247) start_index++;
       break;
+    
+    // The stage of getting non-black/grey pixels to perform
     case 1:
+      for (int i = 0; i < dots.size(); i++) {
+        //println("UPDATING A PIXEL");
+        dots.get(i).speedCheck();
+        dots.get(i).update();
+        dots.get(i).build();
+      }
       break;
+    
   }
+  // end stage switcher
   
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+// EXTENSION
+void mousePressed() {
+  color mouse = get(mouseX, mouseY);
+  int b = mouse & 0xFF;
+  int g = mouse & 0xFF00 >> 8;
+  int r = mouse & 0xFF0000 >> 16;
+  println(r + "\t" + g + "\t" + b);
 }
