@@ -5,7 +5,8 @@
 void startup(int index) {
   image(startup[index], 0, 0);
   //if (FPS > 30) FPS -= 0.5;
-  frameRate(FPS);
+  if (frameCount > 200 && fps_s1 > 5) fps_s1--;
+  frameRate(fps_s1);
 }
 
 // stage 1

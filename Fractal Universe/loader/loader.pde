@@ -13,6 +13,7 @@ float   socialDist = 10;   // keep social distance
 // stage variables
   // stage 0
   PImage[] startup = new PImage[248];
+  float fps_s1 = FPS;
   int start_index = 0;
   //stage 1
   ArrayList<pix> dots = new ArrayList<pix>();
@@ -36,6 +37,7 @@ void draw() {
     case 0:
       if (start_index >= 247) {
         image(startup[247],0,0);
+        frameRate(FPS);
         scanDots();
         stage = 1;
       }
@@ -47,7 +49,11 @@ void draw() {
     case 1:
       for (int i = 0; i < dots.size(); i++) {
         //println("UPDATING A PIXEL");
-        dots.get(i).speedCheck();
+        if (mousePressed) {
+          dots.get(i).goHome();
+        } else {
+          dots.get(i).speedCheck();
+        }
         dots.get(i).update();
         dots.get(i).build();
       }
@@ -65,5 +71,5 @@ void mousePressed() {
   int b = mouse & 0xFF;
   int g = mouse & 0xFF00 >> 8;
   int r = mouse & 0xFF0000 >> 16;
-  println(r + "\t" + g + "\t" + b);
+  //println(r + "\t" + g + "\t" + b);
 }

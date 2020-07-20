@@ -1,13 +1,20 @@
 class pix {
+  // current position
   float x;
   float y;
+  // original position
+  float ox;
+  float oy;
+  // color
   color co;
+  // speed
   float xv;
   float yv;
   
   // create this pixel with X Y and its color
   pix(float _x, float _y, color _co) {
     x = _x; y = _y; co = _co;
+    ox = _x; oy = _y;
     xv = 1;
     yv = 1;
   }
@@ -39,7 +46,11 @@ class pix {
         } else {
           xv = -1;
         }
-        yv = (dots.get(i).y - y) / (dots.get(i).x - x);
+        if (y > dots.get(i).y) {
+          yv = abs(dots.get(i).y - y) / abs(dots.get(i).x - x);
+        } else {
+          yv = -abs(dots.get(i).y - y) / abs(dots.get(i).x - x);
+        }
       }
       // if reach boundary
     }
@@ -47,4 +58,23 @@ class pix {
     if (y <= 0 || y >= height) yv = -yv;
   }
   
+  // go back to its original position
+  void goHome() {
+    if (x != ox && y!= oy) {
+      if (x - ox > 0) {
+        xv = -1;
+      } else if (x == ox) {
+        xv = 0;
+      } else {
+        xv = 1;
+      }
+      if (y > oy) {
+        yv = - abs(oy - y) / abs(ox - x);
+      } else {
+        yv = abs(oy - y) / abs(ox - x);
+      }
+    }
+    if (x <= 0 || x >= width) xv = -xv;
+    if (y <= 0 || y >= height) yv = -yv;
+  }
 }
