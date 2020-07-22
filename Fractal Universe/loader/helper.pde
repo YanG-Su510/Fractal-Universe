@@ -16,3 +16,40 @@ PVector colorExtract(color todo) {
   PVector get = new PVector( r, g, b );
   return get;
 }
+
+// Current dot x & y, target dot x & y ==> x & y velocity
+PVector engage(float x, float y, float t_x, float t_y) {
+  float disx = abs(t_x - x);
+  float disy = abs(t_y - y);
+  float vx, vy;
+  if (disx > disy) {
+    vx = 1;
+    if (t_x < x) vx *= -1;
+    vy = disy/disx;
+    if (t_y < y) vy *= -1;
+  } else {
+    vy = 1;
+    if (t_y < y) vy *= -1;
+    vx = disx/disy;
+    if (t_x < x) vx *= -1;
+  }
+  return new PVector(vx, vy);
+}
+
+PVector withdraw(float x, float y, float t_x, float t_y) {
+  float disx = abs(t_x - x);
+  float disy = abs(t_y - y);
+  float vx, vy;
+  if (disx > disy) {
+    vx = -1;
+    if (t_x < x) vx *= -1;
+    vy = -disy/disx;
+    if (t_y < y) vy *= -1;
+  } else {
+    vy = -1;
+    if (t_y < y) vy *= -1;
+    vx = -disx/disy;
+    if (t_x < x) vx *= -1;
+  }
+  return new PVector(vx, vy);
+}

@@ -52,7 +52,7 @@ void draw() {
         if (mousePressed) {
           dots.get(i).goHome();
         } else {
-          dots.get(i).speedCheck();
+          dots.get(i).speedCheck(i);
         }
         dots.get(i).update();
         dots.get(i).build();

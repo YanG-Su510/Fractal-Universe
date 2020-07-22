@@ -22,7 +22,9 @@ class pix {
   // draw this pixel
   void build() {
     stroke(co);
-    point(x, y);
+    fill(co);
+    circle(x, y, 2);
+    //point(x, y);
   }
   
   // update this pixel using defined velocity
@@ -32,27 +34,17 @@ class pix {
   }
   
   // go through other dots checking their distance and update speed
-  void speedCheck() {
+  void speedCheck(int curr_index) {
     float dis, nearest = socialDist;
     for (int i = 0; i < dots.size(); i++) {
       dis = dist( dots.get(i).x, dots.get(i).y, x, y);
       // if some dot is not far from here enough
-      if ( dis < nearest && dis != 0) {
+      if ( dis < nearest && i != curr_index) {
         nearest = dis;
-        if (x - dots.get(i).x > 0) {
-          xv = 1;
-        } else if (x == dots.get(i).x) {
-          xv = 0;
-        } else {
-          xv = -1;
-        }
-        if (y > dots.get(i).y) {
-          yv = abs(dots.get(i).y - y) / abs(dots.get(i).x - x);
-        } else {
-          yv = -abs(dots.get(i).y - y) / abs(dots.get(i).x - x);
-        }
+        PVector velo = withdraw(x, y, dots.get(i).x, dots.get(i).y);
+        xv = velo.x;
+        yv = velo.y;
       }
-      // if reach boundary
     }
     if (x <= 0 || x >= width) xv = -xv;
     if (y <= 0 || y >= height) yv = -yv;
@@ -60,20 +52,9 @@ class pix {
   
   // go back to its original position
   void goHome() {
-    if (x != ox && y!= oy) {
-      if (x - ox > 0) {
-        xv = -1;
-      } else if (x == ox) {
-        xv = 0;
-      } else {
-        xv = 1;
-      }
-      if (y > oy) {
-        yv = - abs(oy - y) / abs(ox - x);
-      } else {
-        yv = abs(oy - y) / abs(ox - x);
-      }
-    }
+    PVector velo = engage(x, y, ox, oy);
+    xv = velo.x;
+    yv = velo.y;
     if (x <= 0 || x >= width) xv = -xv;
     if (y <= 0 || y >= height) yv = -yv;
   }
