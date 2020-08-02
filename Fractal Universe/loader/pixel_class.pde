@@ -53,12 +53,12 @@ class pix {
   void edgeCheck() {
     
     if (x <= 0 || x >= width) {
-      if (random(100) < 10) co = color(random(255),random(255),random(255));
+      if (random(100) < 10) co = color(frameCount % 255,(frameCount/FPS)%255,0);
       else if (random(100) < 10) co = color(255);
       xv = -xv;
     }
     if (y <= 0 || y >= height) {
-      if (random(100) < 10) co = color(random(255),random(255),random(255));
+      if (random(100) < 10) co = color(frameCount % 255,(frameCount/FPS)%255,0);
       else if (random(100) < 10) co = color(255);
       yv = -yv;
     }
@@ -69,8 +69,6 @@ class pix {
     PVector velo = engage(x, y, ox, oy);
     xv = velo.x;
     yv = velo.y;
-    if (x <= 0 || x >= width) xv = -xv;
-    if (y <= 0 || y >= height) yv = -yv;
   }
   
   // go away from mouse click
@@ -80,7 +78,5 @@ class pix {
       xv = velo.x;
       yv = velo.y;
     }
-    if (x <= 0 || x >= width) xv = -xv;
-    if (y <= 0 || y >= height) yv = -yv;
   }
 }

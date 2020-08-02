@@ -21,6 +21,7 @@ PVector colorExtract(color todo) {
 PVector engage(float x, float y, float t_x, float t_y) {
   float disx = abs(t_x - x);
   float disy = abs(t_y - y);
+  float dist = dist(x, y, t_x, t_y);
   float vx, vy;
   if (disx > disy) {
     vx = 1;
@@ -33,7 +34,7 @@ PVector engage(float x, float y, float t_x, float t_y) {
     vx = disx/disy;
     if (t_x < x) vx *= -1;
   }
-  return new PVector(vx, vy);
+  return new PVector(dist/100 * vx, dist/100 * vy);
 }
 
 PVector withdraw(float x, float y, float t_x, float t_y) {
@@ -53,3 +54,20 @@ PVector withdraw(float x, float y, float t_x, float t_y) {
   }
   return new PVector(vx, vy);
 }
+
+// Chladni Figure Check
+boolean chladni(float x, float y) {
+  if (a <= -10 || a >= 10) aa = -aa;
+  a += aa;
+  if (a * sin(PI*n*x) * sin(PI*m*y) + b * sin(PI*m*x) * sin(PI*n*y) == 0) return true;
+  //if (roundZero(a * sin(PI*n*x) * sin(PI*m*y) + b * sin(PI*m*x) * sin(PI*n*y))) return true;
+  return false;
+}
+
+boolean roundZero(float n) {
+  float rz = 0.00000005;
+  if ( n > (0-rz) && n < (rz) ) return true;
+  return false;
+}
+
+// Sine Wave Check

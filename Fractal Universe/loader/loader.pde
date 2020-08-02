@@ -21,6 +21,10 @@ float   socialDist = 10;   // keep social distance
   //stage 1
   ArrayList<pix> dots = new ArrayList<pix>();
   float choice;
+  
+// CHLADNI FIGURE
+  float a = 0, n = 2, m = 7, b = 1;
+  float aa = 0.1;
 
 ///////////////////////////////////////////////////////////////////////////////////
 // MAIN
@@ -54,16 +58,14 @@ void draw() {
     
     // The stage of getting non-black/grey pixels to perform
     case 1:
-      frameRate(FPS);
+      //frameRate(FPS);
       for (int i = 0; i < dots.size(); i++) {
-        //println("UPDATING A PIXEL");
         if (mousePressed) {
-          
-          if (choice < 3) {
+          // MOUSEPRESS
+          if (false) {
             // touch 1
             dots.get(i).goHome();
-          }
-          else if (choice > 3 && choice < 6) {
+          } else if (choice < 5) {
             // touch 2
             dots.get(i).x += (mouseX - pmouseX);
             dots.get(i).y += (mouseY - pmouseY);
@@ -72,11 +74,19 @@ void draw() {
             if (dots.get(i).x > width) dots.get(i).x = width;
             if (dots.get(i).y > height) dots.get(i).y = height;
           } else {
-            dots.get(i).edgeCheck();
+            // touch 3
             dots.get(i).withdrawMouse(50);
           }
-        
-      } else {
+          dots.get(i).edgeCheck();
+        } /*else if (chladni(dots.get(i).x, dots.get(i).y)) {
+          // CHLADNI
+          dots.get(i).xv = 0;
+          dots.get(i).yv = 0;
+        }*/else {
+          PVector sn = engage(dots.get(i).x, dots.get(i).y, i % width, height/2 * sin(float(i)/100 + b) + height/2);
+          dots.get(i).xv = sn.x;
+          dots.get(i).yv = sn.y;
+          if (b <= 314) b++; else b = 1;
           dots.get(i).edgeCheck();
         }
         dots.get(i).update();
