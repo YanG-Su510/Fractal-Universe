@@ -21,10 +21,9 @@ class pix {
   
   // draw this pixel
   void build() {
-    stroke(co);
-    fill(co);
-    circle(x, y, 2);
-    //point(x, y);
+    parti.stroke(co);
+    parti.fill(co);
+    parti.circle(x, y, 2);
   }
   
   // update this pixel using defined velocity
@@ -33,31 +32,14 @@ class pix {
     y += yv;
   }
   
-  // go through other dots checking their distance and update speed
-  void speedCheck(int curr_index) {
-    /*
-    float dis, nearest = socialDist;
-    for (int i = 0; i < dots.size(); i++) {
-      dis = dist( dots.get(i).x, dots.get(i).y, x, y);
-      // if some dot is not far from here enough
-      if ( dis < nearest && i != curr_index) {
-        nearest = dis;
-        PVector velo = withdraw(x, y, dots.get(i).x, dots.get(i).y);
-        xv = velo.x;
-        yv = velo.y;
-      }
-    }
-    */
-  }
-  
   void edgeCheck() {
-    
     if (x <= 0 || x >= width) {
       if (random(100) < 10) co = color(frameCount % 255,(frameCount/FPS)%255,0);
       else if (random(100) < 10) co = color(255);
       xv = -xv;
     }
     if (y <= 0 || y >= height) {
+      send(-2);
       if (random(100) < 10) co = color(frameCount % 255,(frameCount/FPS)%255,0);
       else if (random(100) < 10) co = color(255);
       yv = -yv;
