@@ -12,18 +12,15 @@ import processing.opengl.PGraphics2D;
 ///////////////////////////////////////////////////////////////////////////////////
 // GLOBAL VARIABLES
 float   FPS = 60;
-int     stage = 0;
-int     bound = 220;        // color bound of picking pixels, recommend bigger than 90
-float   socialDist = 10;   // keep social distance
+int     stage = 1;
+int     bound = 130;        // color bound of picking pixels, recommend bigger than 90
 
 DwPixelFlow context;
 PGraphics2D parti;
 
 // stage variables
   // stage 0
-  PImage[] startup = new PImage[248];
   PImage pic;
-  float fps_s1 = FPS;
   int start_index = 247;    // use 
   //stage 1
   ArrayList<pix> dots = new ArrayList<pix>();
@@ -48,17 +45,18 @@ void setup() {
   
   // Render
   parti = (PGraphics2D) createGraphics(width, height, P2D);
-  parti.smooth(0);
-  //frameRate(FPS);
+  parti.smooth(8);
   
   // oscP5
-  oscP5 = new OscP5(this,12000);
-  myRemoteLocation = new NetAddress("127.0.0.1",12000);
+  oscP5 = new OscP5(this,25577);
+  myRemoteLocation = new NetAddress("127.0.0.1",25577);
   
   // load frames
   imageMode(CENTER);
-  //for (int i = 001; i <= 248; i++) startup[i-1] = loadImage("mand_"+ i +".png");
   pic = loadImage("mand_248.png");
+  
+  image(pic,width/2,height/2,width,height);
+  scanDots();
 }
 
 void draw() {
@@ -70,19 +68,11 @@ void draw() {
   switch (stage) {
     
     // The stage of startup
-    case 0:
-      /*if (start_index >= 247) {
-        image(startup[247],width/2,height/2,width,height);
-        frameRate(FPS);
-        scanDots();
-        stage = 1;
-      }
-      startup(start_index);
-      if (start_index < 247) start_index++;*/
+    /*case 0:
       image(pic,width/2,height/2,width,height);
       scanDots();
       stage = 1;
-      break;
+      break;*/
     
     // The stage of getting non-black/grey pixels to perform
     case 1:
