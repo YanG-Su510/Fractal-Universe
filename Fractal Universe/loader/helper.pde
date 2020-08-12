@@ -56,18 +56,16 @@ PVector withdraw(float x, float y, float t_x, float t_y) {
 }
 
 // Chladni Figure Check
-boolean chladni(float x, float y) {
+/*boolean chladni(float x, float y) {
   if (a <= -10 || a >= 10) aa = -aa;
   a += aa;
   if (a * sin(PI*n*x) * sin(PI*m*y) + b * sin(PI*m*x) * sin(PI*n*y) == 0) return true;
   //if (roundZero(a * sin(PI*n*x) * sin(PI*m*y) + b * sin(PI*m*x) * sin(PI*n*y))) return true;
   return false;
-}
+}*/
 
 boolean roundZero(float n) {
   float rz = 0.00000005;
   if ( n > (0-rz) && n < (rz) ) return true;
   return false;
 }
-
-// Sine Wave Check

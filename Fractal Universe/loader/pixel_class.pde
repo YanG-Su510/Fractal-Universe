@@ -21,9 +21,9 @@ class pix {
   
   // draw this pixel
   void build() {
-    parti.stroke(co);
-    parti.fill(co);
-    parti.circle(x, y, 2);
+    stroke(co);
+    fill(co);
+    circle(x, y, 2);
   }
   
   // update this pixel using defined velocity
@@ -53,12 +53,15 @@ class pix {
     yv = velo.y;
   }
   
-  // go away from mouse click
+  // go away from touch click
   void withdrawMouse(float dis) {
-    if ( dist(x, y, mouseX, mouseY) < dis ) {
-      PVector velo = withdraw(x, y, mouseX, mouseY);
-      xv = velo.x;
-      yv = velo.y;
+    for (int i = 0; i < tobjList.size(); i++) {
+      TuioCursor tobj = tobjList.get(i);
+      if ( dist(x, y, tobj.getScreenX(width), tobj.getScreenY(height)) < dis ) {
+        PVector velo = withdraw(x, y, tobj.getScreenX(width), tobj.getScreenY(height));
+        xv = velo.x;
+        yv = velo.y;
+      }
     }
   }
 }
