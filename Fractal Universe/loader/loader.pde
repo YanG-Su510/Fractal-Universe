@@ -46,9 +46,11 @@ void setup() {
   // load frames
   imageMode(CENTER);
   pic = loadImage("mand_248.png");
-  
   image(pic,width/2,height/2,width,height);
   scanDots();
+  
+  // DONE
+  send(0);
 }
 
 void draw() {
@@ -60,8 +62,8 @@ void draw() {
   // main calculation
   for (int i = 0; i < dots.size(); i++) {
     if (tobjList.size() > 0) {
-      touch = true;
       //send(-1);
+      touch = true;
       if (tobjList.size() == 1) {
         // touch - drag
         dots.get(i).x += (tobjList.get(0).getScreenX(width) - pcursor.x);
@@ -80,7 +82,6 @@ void draw() {
     } else {
       touchReleased(false);
       touch = false;
-      //send(i);
       PVector sn = engage(dots.get(i).x, dots.get(i).y, i % width, height/2 * sin(float(i)/100 + b) + height/2);
       dots.get(i).xv = sn.x;
       dots.get(i).yv = sn.y;
